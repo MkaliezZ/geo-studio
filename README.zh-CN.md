@@ -10,9 +10,10 @@
 
 ## 功能
 
+- **使用引导**：四步操作提示、提供商预设、DeepSeek 本机密钥复用，以及独立联网引用验证入口。
 - **网站诊断**：组合 SiteOne 采集、可选 Chromium 渲染及 Protego robots 解析，检查 HTTP、noindex、摘要限制、标题、描述、canonical、H1、正文、JSON-LD 语法等。
 - **证据与复检**：查看页面快照和原始证据，对比最近两次完成的诊断；缺失或未知结果不会算作问题已解决。
-- **AI 改写**：导入已采集正文或粘贴文本，配置目标，生成草稿、查看差异、人工编辑、保存并导出 Markdown。
+- **AI 改写**：导入已采集正文或粘贴文本，配置目标，生成草稿、查看差异、人工编辑、保存并导出 Markdown。标题、描述、H1、正文和 JSON-LD 失败项可直接创建携带原始证据的优化任务；生成草稿不会将问题标记为已解决。
 - **回答与引用监测**：固定问题集、品牌别名、目标域、多提供商、重复采样，保留回答、来源字段和历史指标。
 - **本地定时**：手动、每小时或每天执行，单批最多 30 次请求；仅在应用运行期间生效。
 - **导出**：Markdown、JSON，不包含 API Key。
@@ -20,6 +21,8 @@
 ![AI 改写：真实 DeepSeek API 返回的草稿](docs/screenshots/rewrite.png)
 
 ![回答监测：真实 DeepSeek API 采样](docs/screenshots/monitor.png)
+
+![真实联网引用匹配与来源访问验证](docs/screenshots/web-verification.png)
 
 ## 如何理解指标
 
@@ -49,9 +52,12 @@ npm run dev
 | --- | --- |
 | OpenAI Responses | 改写；监测要求端点支持 `web_search` |
 | Perplexity Agent API | 改写、带提供商搜索来源的监测 |
+| DeepSeek 联网（Anthropic 兼容） | 真实联网回答、搜索结果与回答引用匹配 |
 | OpenAI-compatible Chat | 改写、普通回答与品牌提及监测 |
 
-DeepSeek 选择 **OpenAI-compatible Chat**，Base URL 填写 `https://api.deepseek.com`，模型使用账号支持的 ID，例如 `deepseek-flash`。已执行真实连接、中文改写和普通回答监测测试；这不表示已验证 DeepSeek 消费端联网搜索或网页引用监测。模型及价格可能变化，请核对[官方文档](https://api-docs.deepseek.com/zh-cn/)。
+DeepSeek 选择 **OpenAI-compatible Chat**，Base URL 填写 `https://api.deepseek.com`，模型使用账号支持的 ID，例如 `deepseek-flash`。已执行真实连接、中文改写和普通回答监测测试；需要联网监测时，选择 **DeepSeek 联网搜索** 预设（`https://api.deepseek.com/anthropic`），或在已有的 DeepSeek 官方配置上点击「创建联网配置」，然后执行「验证联网引用」。Chat 和 Responses 通道不能代替这条搜索通道；API 验收仍不代表消费端 App 表现。模型及价格可能变化，请核对[官方文档](https://api-docs.deepseek.com/zh-cn/)。
+
+联网验证通过需要：提供商成功搜索、回答引用与检索来源匹配，以及至少一个来源页面本机可访问。匹配仅忽略已知追踪参数和 fragment，保留影响内容的查询参数。此检查验证证据链，不保证回答的所有事实正确。界面展示工具错误和实际搜索次数；一次采样可能产生多次搜索费用。
 
 ## 构建和测试
 

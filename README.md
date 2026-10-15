@@ -11,8 +11,9 @@ The current interface is in Simplified Chinese. This is an early desktop release
 ## What it does
 
 - **Website audits:** SiteOne collection, optional Chromium rendering, HTTP and HTML checks, and per-URL/per-bot robots decisions using Protego.
+- **Guided setup:** a four-step guide, provider presets, local DeepSeek key reuse, and an explicit web-citation verification action.
 - **Evidence and rechecks:** inspect page snapshots and compare the latest two completed audits. Missing or unknown checks do not count as resolved issues.
-- **AI rewriting:** bring your own API key, import collected text or paste content, generate a draft, review line differences, edit, save, and export Markdown.
+- **AI rewriting:** bring your own API key, import collected text or paste content, generate a draft, review line differences, edit, save, and export Markdown. Failed title/description/H1/body/JSON-LD checks can create a targeted optimization task with the original evidence; generating a draft never marks the issue resolved.
 - **Answer monitoring:** fixed question sets, brand aliases, target domains, multiple providers, repeat sampling, raw answers, provider citations, and historical metrics.
 - **Local scheduling:** manual, hourly, or daily sampling while the app is running; a maximum of 30 requests per batch.
 - **Exports:** Markdown and JSON, without API keys.
@@ -20,6 +21,8 @@ The current interface is in Simplified Chinese. This is an early desktop release
 ![AI rewriting — actual DeepSeek API response](docs/screenshots/rewrite.png)
 
 ![Answer monitoring — actual DeepSeek API sample](docs/screenshots/monitor.png)
+
+![Real web-search citation and source access verification](docs/screenshots/web-verification.png)
 
 ## What the metrics mean
 
@@ -49,9 +52,12 @@ In **模型设置** (Model settings), enter a provider name, protocol, Base URL,
 | --- | --- |
 | OpenAI Responses | Rewriting; monitoring requests require `web_search` support |
 | Perplexity Agent API | Rewriting and monitoring with provider search references |
+| DeepSeek search (Anthropic-compatible) | Real web-search answer monitoring with matched provider search results |
 | OpenAI-compatible Chat | Rewriting and ordinary answer/brand monitoring |
 
-DeepSeek works through **OpenAI-compatible Chat**, Base URL `https://api.deepseek.com`, with an account-supported model such as `deepseek-flash`. An actual API connection, Chinese rewrite, and ordinary-answer monitor have been tested. This does not validate DeepSeek consumer-app search or web citation tracking. Model availability and pricing can change; consult the [provider documentation](https://api-docs.deepseek.com/).
+DeepSeek works through **OpenAI-compatible Chat**, Base URL `https://api.deepseek.com`, with an account-supported model such as `deepseek-flash`. An actual API connection, Chinese rewrite, and ordinary-answer monitor have been tested. For web monitoring, choose the **DeepSeek search** preset (`https://api.deepseek.com/anthropic`) or use the local “创建联网配置” action on an existing official DeepSeek configuration, then click “验证联网引用”. The Chat and Responses endpoints are not a substitute for this search channel. This does not validate DeepSeek consumer-app search. Model availability and pricing can change; consult the [provider documentation](https://api-docs.deepseek.com/).
+
+A successful web verification requires successful provider search results, a matching answer citation, and at least one source URL accessible from this machine. Known tracking parameters and fragments are normalized; content-selecting query parameters are retained. This verifies the evidence chain, not the truth of every claim. Tool errors and actual search counts are shown; one sample can trigger multiple billable searches.
 
 ## Build and test
 
