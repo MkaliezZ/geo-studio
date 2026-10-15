@@ -1,0 +1,22 @@
+{
+  "darwin-x64": {
+    "url": "https://github.com/janreges/siteone-crawler/releases/download/v2.5.1/siteone-crawler-v2.5.1-macos-x64.tar.gz",
+    "sha256": "724639bdfca7d26514a7c3f10caa6a9172a4f2192744d9e4691bcf842b2e4609",
+    "name": "siteone-crawler-v2.5.1-macos-x64.tar.gz"
+  },
+  "darwin-arm64": {
+    "url": "https://github.com/janreges/siteone-crawler/releases/download/v2.5.1/siteone-crawler-v2.5.1-macos-arm64.tar.gz",
+    "sha256": "6b893a15ce695a002bbe6c3d2467954fee64059216d471fae55c781936d96e2f",
+    "name": "siteone-crawler-v2.5.1-macos-arm64.tar.gz"
+  },
+  "win32-x64": {
+    "url": "https://github.com/janreges/siteone-crawler/releases/download/v2.5.1/siteone-crawler-v2.5.1-win-x64.zip",
+    "sha256": "6b6758daa866df99d9bd7a020b51eaeca2d5f52f3172ec5270f9f96b964c16db",
+    "name": "siteone-crawler-v2.5.1-win-x64.zip"
+  },
+  "linux-x64": {
+    "url": "https://github.com/janreges/siteone-crawler/releases/download/v2.5.1/siteone-crawler-v2.5.1-linux-musl-x64.tar.gz",
+    "sha256": "bd96b9502563aea2581fc248625871e69b60d7f1bb68a484f226c551c73706fd",
+    "name": "siteone-crawler-v2.5.1-linux-musl-x64.tar.gz"
+  }
+}
