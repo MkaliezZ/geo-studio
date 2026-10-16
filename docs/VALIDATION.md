@@ -33,6 +33,19 @@ Keys were imported locally, encrypted, and never included in repository files, s
 
 ## Remaining limits / 尚未验证
 
-Real web-search citation monitoring through OpenAI Responses and Perplexity Agent API remains untested. DeepSeek's compatible Chat sample is not evidence of consumer-app search behavior. Signed distribution, all-platform installation, and sustained stability remain separate acceptance work.
+Real web-search citation monitoring through OpenAI Responses and Perplexity Agent API remains untested. DeepSeek search validation added on 2026-10-16 is recorded below. DeepSeek's compatible Chat sample is not evidence of consumer-app search behavior. Signed distribution, all-platform installation, and sustained stability remain separate acceptance work.
 
 中文说明：本轮已验证真实 DeepSeek 连通性、中文改写、普通回答采样、历史恢复及本机加密存储。提及测试使用了包含品牌的示例提示词，仅验证功能链路；没有有效联网证据，所以引用率不可计算。不能将这些结果解释成自然曝光、引用率提升或所有系统均已验收。
+
+## 2026-10-16: guided optimization and real web citations
+
+Version: 0.2.0. The local suite now covers 33 tests (all passed, none skipped). New contracts cover diagnosis-bound optimization tasks, cross-project rejection before API calls, correlated search results, failed tools, URL tracking normalization, source accessibility, and validation invalidation when model configuration changes.
+
+- Diagnosis → optimization: a real DeepSeek Chat request generated a meta-description proposal and copyable HTML from the selected failed check. The original check remains failed until an actual website edit and re-audit. The draft retains its originating audit, page, rule, and evidence.
+- DeepSeek search uses `https://api.deepseek.com/anthropic/v1/messages`, model `deepseek-flash`, with the provider's web-search tool. DeepSeek's Chat/Responses formats must not be assumed to expose the same capability. See [official integration guidance](https://api-docs.deepseek.com/quick_start/agent_integrations/claude_code/) and [Responses limitations](https://api-docs.deepseek.com/guides/responses_api/).
+- The final real IANA reference verification returned **2 search tool calls, 10 result entries, 1 tool error, 1 matched citation**, and a successful independent **HTTP 200** GET of `https://www.iana.org/domains/reserved`. The tool error remains visible; it is not erased by the successful result. A separate real monitoring batch then completed 1/1 sample with web evidence and an IANA target-domain citation. This is a reference-question functionality check, not an organic-visibility metric.
+- Earlier attempts were not accepted: the model substituted a source path not present in the retrieved results; another matched URL containing a `source=post_page-…` tracking parameter returned HTTP 403. The clean URL returned 200. Matching and verification now remove fragments and a narrow set of known tracking parameters (`utm_*`, `gclid`, `fbclid`, and `source=post_page-…`), while retaining content-selecting query parameters. Original retrieved URLs remain inspectable.
+- The provider returned two search calls despite the requested one-use hint. The interface therefore warns that one sample may incur multiple searches and displays observed counts; the hint is not treated as an enforced spending cap.
+- A successful verification means provider search evidence + matched answer source + at least one independently reachable source. It does not certify every factual statement or organic brand visibility. The fixed IANA question is a functional test, not a growth experiment.
+
+![Real web-citation verification](screenshots/web-verification.png)
