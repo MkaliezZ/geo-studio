@@ -20,6 +20,10 @@ jobs:
           python-version: '3.12'
       - run: npm ci
       - run: npm run components -- --release
+      - name: Install a reproducible test browser
+        run: npx playwright install chromium
+      - name: Select the test browser
+        run: node --input-type=module -e "import { chromium } from 'playwright'; import { appendFileSync } from 'node:fs'; appendFileSync(process.env.GITHUB_ENV, 'GEO_CHROMIUM_PATH=' + chromium.executablePath() + '\n');"
       - run: npm test
       - run: npm run package
         env:
